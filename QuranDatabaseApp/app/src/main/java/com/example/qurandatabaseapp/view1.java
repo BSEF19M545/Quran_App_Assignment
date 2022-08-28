@@ -66,9 +66,11 @@ public class view1 extends AppCompatActivity {
             public void afterTextChanged(Editable mEdit)
             {
                 ArrayList<surahListModel> rtn=new ArrayList<>();
+                String str;
                 for(int i=0;i<displayData.size();i++)
                 {
-                    if (String.valueOf(displayData.get(i).surahNO).equals(mEdit)||displayData.get(i).surahName.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
+                    str=String.valueOf(displayData.get(i).getSurahNO())+ " "+displayData.get(i).surahName;
+                    if (str.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))//String.valueOf(displayData.get(i).surahNO).equals(mEdit.toString())||displayData.get(i).surahName.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
                     {
                         rtn.add(displayData.get(i));
                     }

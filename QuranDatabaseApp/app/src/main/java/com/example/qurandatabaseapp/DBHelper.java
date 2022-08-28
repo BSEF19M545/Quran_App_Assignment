@@ -65,15 +65,15 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return rtn;
     }
-        public ArrayList<String>  getSurah(int suraId){
+        public ArrayList<QuranDisplayModelData>  getSurah(int suraId){
 
             SQLiteDatabase db = this.getReadableDatabase();
-            String Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or SuraID =" + suraId;
+            String Query = "Select \""+ARABIC_COLUMN+"\" ,\"Dr Mohsin Khan\" from " + AYAH_TABLE+ " WHERE AyaId =0 or SuraID =" + suraId;
             Cursor cursor = db.rawQuery(Query, null);
-            ArrayList<String> rtn=new ArrayList<String>();
+            ArrayList<QuranDisplayModelData> rtn=new ArrayList<QuranDisplayModelData>();
             if(!(cursor.getCount() <= 0)){
                 while(cursor.moveToNext()) {
-                    rtn.add(cursor.getString(0));
+                    rtn.add(new QuranDisplayModelData(cursor.getString(0),cursor.getString(1)));
                 }
             }
 
@@ -112,19 +112,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         }
 
-    public ArrayList<String> getPara(int paraId) {
+    public ArrayList<QuranDisplayModelData> getPara(int paraId) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
+        String Query = "Select \""+ARABIC_COLUMN+"\", \" Dr Mohsin Khan \" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
 
-        if(paraId==0)
+        /*if(paraId==0)
         {
             Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
-        }
+        }*/
         Cursor cursor = db.rawQuery(Query, null);
-        ArrayList<String> rtn=new ArrayList<String>();
+        ArrayList<QuranDisplayModelData> rtn=new ArrayList<QuranDisplayModelData>();
         if(!(cursor.getCount() <= 0)){
             while(cursor.moveToNext()) {
-                rtn.add(cursor.getString(0));
+                rtn.add(new QuranDisplayModelData(cursor.getString(0),cursor.getString(1)));
             }
         }
 

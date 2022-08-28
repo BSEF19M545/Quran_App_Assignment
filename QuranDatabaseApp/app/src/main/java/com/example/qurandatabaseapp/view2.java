@@ -19,7 +19,7 @@ public class view2 extends AppCompatActivity {
         Intent intent=getIntent();
         int surahId,paraId;
         DBHelper dbHelper=new DBHelper(this);
-        ArrayList<String> data=new ArrayList<>();
+        ArrayList<QuranDisplayModelData> data=new ArrayList<>();
         if(intent.hasExtra("surahId")){
             surahId=intent.getIntExtra("surahId",0)+1;
             data =dbHelper.getSurah(surahId);
@@ -34,10 +34,12 @@ public class view2 extends AppCompatActivity {
 
         ListView view2ListView=findViewById(R.id.view2ListView);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, data);
-
-        view2ListView.setAdapter(arrayAdapter);
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+//                (this, android.R.layout.simple_list_item_1, data);
+//
+//        view2ListView.setAdapter(arrayAdapter);
+        customListView2 adapter= new customListView2(getApplicationContext(),data);
+        view2ListView.setAdapter(adapter);
 
     }
 }
