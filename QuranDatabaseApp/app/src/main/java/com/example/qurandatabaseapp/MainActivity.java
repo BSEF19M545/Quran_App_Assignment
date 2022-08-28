@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -56,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_book:
                         Toast.makeText(getApplicationContext(), "Book is Clicked", Toast.LENGTH_LONG).show();
-                        //Intent intent = new Intent(MainActivity.this, BookActivity.class);
-                        //startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this, view1.class);
+                        startActivity(intent);
                         //drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuranDatabaseApp">
         <activity
+            android:name=".view2"
+            android:exported="false" />
+        <activity
             android:name=".view1"
             android:exported="false" />
         <activity
