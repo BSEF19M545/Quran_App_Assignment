@@ -19,7 +19,9 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class view1 extends AppCompatActivity {
-    ArrayList<String> displayData;
+    ArrayList<surahListModel> displayData;
+//    ArrayList<String> displayData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +39,13 @@ public class view1 extends AppCompatActivity {
         }
         ListView view1ListView=findViewById(R.id.view1ListView);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>
+        /*ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>
                 (this, android.R.layout.simple_list_item_1, displayData);
 
-        view1ListView.setAdapter(arrayAdapter);
+        view1ListView.setAdapter(arrayAdapter);*/
+        customListView adapter= new customListView(getApplicationContext(),displayData);
+        view1ListView.setAdapter(adapter);
+
         view1ListView.setOnItemClickListener((adapterView, view, i, l) -> {
             if(getIntent().getStringExtra("type").equals("surah"))
             {
@@ -60,17 +65,19 @@ public class view1 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable mEdit)
             {
-                ArrayList<String> rtn=new ArrayList<>();
+                ArrayList<surahListModel> rtn=new ArrayList<>();
                 for(int i=0;i<displayData.size();i++)
                 {
-                    if (displayData.get(i).toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
+                    if (String.valueOf(displayData.get(i).surahNO).equals(mEdit)||displayData.get(i).surahName.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
                     {
                         rtn.add(displayData.get(i));
                     }
                 }
                 if(rtn.size()>0)
                 {
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(view1.this, android.R.layout.simple_list_item_1, rtn);
+                    /*ArrayAdapter<String> adapter = new ArrayAdapter<>(view1.this, android.R.layout.simple_list_item_1, rtn);
+                    view1ListView.setAdapter(adapter);*/
+                    customListView adapter= new customListView(getApplicationContext(),rtn);
                     view1ListView.setAdapter(adapter);
                 }
                 else{

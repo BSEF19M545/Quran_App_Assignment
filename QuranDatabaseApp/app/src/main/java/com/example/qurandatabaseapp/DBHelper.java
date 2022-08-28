@@ -45,15 +45,19 @@ public class DBHelper extends SQLiteOpenHelper {
 //        onCreate(db);
     }
 
-    public ArrayList<String>  getSurahList(){
+//    public ArrayList<String>  getSurahList(){
+    public ArrayList<surahListModel>  getSurahList(){
 
         SQLiteDatabase db = this.getReadableDatabase();
         String Query = "Select * from " + SURAH_TABLE ;
         Cursor cursor = db.rawQuery(Query, null);
-        ArrayList<String> rtn=new ArrayList<String>();
+        ArrayList<surahListModel> rtn=new ArrayList<surahListModel>();
+//        ArrayList<String> rtn=new ArrayList<String>();
+
         if(!(cursor.getCount() <= 0)){
             while(cursor.moveToNext()) {
-                rtn.add(cursor.getString(0)+"    "+cursor.getString(2)+"    "+cursor.getString(4));
+//                rtn.add(cursor.getString(0)+"    "+cursor.getString(2)+"    "+cursor.getString(4));
+                rtn.add(new surahListModel(Integer.parseInt(cursor.getString(0)),cursor.getString(2)));
             }
         }
 
@@ -78,11 +82,13 @@ public class DBHelper extends SQLiteOpenHelper {
             return rtn;
         }
 
-        public ArrayList<String> getParaList() {
+//        public ArrayList<String> getParaList() {
+        public ArrayList<surahListModel> getParaList() {
             SQLiteDatabase db = this.getReadableDatabase();
             String Query = "Select * from " + AYAH_TABLE ;
             Cursor cursor = db.rawQuery(Query, null);
-            ArrayList<String> rtn=new ArrayList<String>();
+            ArrayList<surahListModel> rtn=new ArrayList<surahListModel>();
+//            ArrayList<String> rtn=new ArrayList<String>();
             //english urdu ka chakr hai abhi
             QDH qdh=new QDH();
             ArrayList<String> paraName = new ArrayList<>();
@@ -95,7 +101,8 @@ public class DBHelper extends SQLiteOpenHelper {
             }*/
             while(i<paraName.size())
             {
-                rtn.add((i+1)+"   "+paraName.get(i));
+//                rtn.add((i+1)+"   "+paraName.get(i));
+                rtn.add(new surahListModel(i+1,paraName.get(i)));
                 i++;
             }
 
