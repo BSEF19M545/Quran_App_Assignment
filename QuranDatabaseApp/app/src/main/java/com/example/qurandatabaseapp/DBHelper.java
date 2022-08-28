@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
         public static final String SURAH_TABLE = "tsurah";
         public static final String AYAH_TABLE = "tayah";
+        public static final String ARABIC_COLUMN = "Arabic Text";
 
 
 
@@ -62,12 +63,12 @@ import java.util.ArrayList;
         public ArrayList<String>  getSurah(int suraId){
 
             SQLiteDatabase db = this.getReadableDatabase();
-            String Query = "Select Arabic Text from " + AYAH_TABLE+ "WHERE SuraID =" + suraId;
+            String Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or SuraID =" + suraId;
             Cursor cursor = db.rawQuery(Query, null);
             ArrayList<String> rtn=new ArrayList<String>();
             if(!(cursor.getCount() <= 0)){
                 while(cursor.moveToNext()) {
-                    rtn.add(cursor.getString(0)+"    "+cursor.getString(2)+"    "+cursor.getString(4));
+                    rtn.add(cursor.getString(0));
                 }
             }
 
