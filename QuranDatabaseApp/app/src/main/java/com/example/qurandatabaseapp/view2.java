@@ -17,15 +17,25 @@ public class view2 extends AppCompatActivity {
         setContentView(R.layout.activity_view2);
 
         Intent intent=getIntent();
-        int surahId=intent.getIntExtra("surahId",0)+1;
-
+        int surahId,paraId;
         DBHelper dbHelper=new DBHelper(this);
-        ArrayList<String> surah =dbHelper.getSurah(surahId);
+        ArrayList<String> data=new ArrayList<>();
+        if(intent.hasExtra("surahId")){
+            surahId=intent.getIntExtra("surahId",0)+1;
+            data =dbHelper.getSurah(surahId);
+        }
+        else if (intent.hasExtra("paraId"))
+        {
+            paraId=intent.getIntExtra("paraId",0);
+            data =dbHelper.getPara(paraId);
+        }
+
+
 
         ListView view2ListView=findViewById(R.id.view2ListView);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, surah);
+                (this, android.R.layout.simple_list_item_1, data);
 
         view2ListView.setAdapter(arrayAdapter);
 

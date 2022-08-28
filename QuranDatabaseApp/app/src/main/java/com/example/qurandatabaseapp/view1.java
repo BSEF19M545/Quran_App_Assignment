@@ -19,22 +19,37 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class view1 extends AppCompatActivity {
-    ArrayList<String> surahIds;
+    ArrayList<String> displayData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view1);
         DBHelper db=new DBHelper(this);
-        surahIds=db.getSurahIds();
+        Intent intent = new Intent(view1.this, view2.class);
+
+        if(getIntent().getStringExtra("type").equals("surah"))
+        {
+            displayData=db.getSurahList();
+        }
+        else if(getIntent().getStringExtra("type").equals("para"))
+        {
+            displayData=db.getParaList();
+        }
         ListView view1ListView=findViewById(R.id.view1ListView);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_list_item_1, surahIds);
+                (this, android.R.layout.simple_list_item_1, displayData);
 
         view1ListView.setAdapter(arrayAdapter);
         view1ListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(view1.this, view2.class);
-            intent.putExtra("surahId",i);
+            if(getIntent().getStringExtra("type").equals("surah"))
+            {
+                intent.putExtra("surahId",i);
+            }
+            else if(getIntent().getStringExtra("type").equals("para"))
+            {
+                intent.putExtra("paraId",i);
+            }
             startActivity(intent);
         });
 
@@ -46,11 +61,11 @@ public class view1 extends AppCompatActivity {
             public void afterTextChanged(Editable mEdit)
             {
                 ArrayList<String> rtn=new ArrayList<>();
-                for(int i=0;i<surahIds.size();i++)
+                for(int i=0;i<displayData.size();i++)
                 {
-                    if (surahIds.get(i).toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
+                    if (displayData.get(i).toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
                     {
-                        rtn.add(surahIds.get(i));
+                        rtn.add(displayData.get(i));
                     }
                 }
                 if(rtn.size()>0)
