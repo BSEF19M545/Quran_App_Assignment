@@ -10,9 +10,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,18 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
 
-    @Override
-    public void onBackPressed(){
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
-            drawerLayout.closeDrawer(GravityCompat.START);
-            Toast.makeText(getApplicationContext(),"Start",Toast.LENGTH_LONG).show();
 
-        }
-        else
-        {
-            Toast.makeText(getApplicationContext(),"End",Toast.LENGTH_LONG).show();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
 
+        Switch mySwitch = findViewById(R.id.myswitch);
+        //mySwitch.setOnCheckedChangeListener(this);
+
+
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -59,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), "Book is Clicked", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(MainActivity.this, view1.class);
                         intent.putExtra("type","surah");
+                        if(mySwitch.isChecked())
+                            intent.putExtra("language","urdu");
+                        else
+                            intent.putExtra("language","english");
                         startActivity(intent);
                         //drawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -67,24 +70,16 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), "Return is Clicked", Toast.LENGTH_LONG).show();
                         intent = new Intent(MainActivity.this, view1.class);
                         intent.putExtra("type","para");
+                        if(mySwitch.isChecked())
+                            intent.putExtra("language","urdu");
+                        else
+                            intent.putExtra("language","english");
+
                         startActivity(intent);
                         //drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-                    case R.id.nav_laptop:
-                        Toast.makeText(getApplicationContext(), "Laptop is clicked", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
 
-                    case R.id.nav_voice:
-                        Toast.makeText(getApplicationContext(), "Voice is clicked", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-
-                    case R.id.nav_chrome_reader:
-                        Toast.makeText(getApplicationContext(), "Chrome Reader is clicked", Toast.LENGTH_LONG).show();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
                 }
 
                 return true;
@@ -92,4 +87,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }}
+    }
+
+}

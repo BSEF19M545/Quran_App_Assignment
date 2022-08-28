@@ -46,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 //    public ArrayList<String>  getSurahList(){
-    public ArrayList<surahListModel>  getSurahList(){
+    public ArrayList<surahListModel>  getSurahList(String language){
 
         SQLiteDatabase db = this.getReadableDatabase();
         String Query = "Select * from " + SURAH_TABLE ;
@@ -57,7 +57,11 @@ public class DBHelper extends SQLiteOpenHelper {
         if(!(cursor.getCount() <= 0)){
             while(cursor.moveToNext()) {
 //                rtn.add(cursor.getString(0)+"    "+cursor.getString(2)+"    "+cursor.getString(4));
-                rtn.add(new surahListModel(Integer.parseInt(cursor.getString(0)),cursor.getString(2)));
+                if(language.equals("english"))
+                    rtn.add(new surahListModel(Integer.parseInt(cursor.getString(0)),cursor.getString(2)));
+                else
+                    rtn.add(new surahListModel(Integer.parseInt(cursor.getString(0)),cursor.getString(4)));
+
             }
         }
 
@@ -65,15 +69,22 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return rtn;
     }
-        public ArrayList<QuranDisplayModelData>  getSurah(int suraId){
+        public ArrayList<QuranDisplayModelData>  getSurah(int suraId,String language){
 
             SQLiteDatabase db = this.getReadableDatabase();
-            String Query = "Select \""+ARABIC_COLUMN+"\" ,\"Dr Mohsin Khan\" from " + AYAH_TABLE+ " WHERE AyaId =0 or SuraID =" + suraId;
+            String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId;
+            if(!(suraId==9))
+            {
+                Query += " or AyaId = 0";
+            }
             Cursor cursor = db.rawQuery(Query, null);
             ArrayList<QuranDisplayModelData> rtn=new ArrayList<QuranDisplayModelData>();
             if(!(cursor.getCount() <= 0)){
                 while(cursor.moveToNext()) {
-                    rtn.add(new QuranDisplayModelData(cursor.getString(0),cursor.getString(1)));
+                    if(language.equals("english"))
+                        rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(6)));
+                    else
+                        rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(5)));
                 }
             }
 
@@ -83,7 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
 //        public ArrayList<String> getParaList() {
-        public ArrayList<surahListModel> getParaList() {
+        public ArrayList<surahListModel> getParaList(String language) {
             SQLiteDatabase db = this.getReadableDatabase();
             String Query = "Select * from " + AYAH_TABLE ;
             Cursor cursor = db.rawQuery(Query, null);
@@ -92,7 +103,10 @@ public class DBHelper extends SQLiteOpenHelper {
             //english urdu ka chakr hai abhi
             QDH qdh=new QDH();
             ArrayList<String> paraName = new ArrayList<>();
-            paraName=qdh.GetParahNameEnglish();
+            if(language.equals("english"))
+                paraName=qdh.GetParahNameEnglish();
+            else
+                paraName=qdh.GetParahNameUrdu();
             int i=0;
             /*if(!(cursor.getCount() <= 0)){
                 while(cursor.moveToNext()) {
@@ -112,19 +126,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
         }
 
-    public ArrayList<QuranDisplayModelData> getPara(int paraId) {
+    public ArrayList<QuranDisplayModelData> getPara(int paraId, String language) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select \""+ARABIC_COLUMN+"\", \" Dr Mohsin Khan \" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId;
 
-        /*if(paraId==0)
+        if(paraId==1)
         {
-            Query = "Select \""+ARABIC_COLUMN+"\" from " + AYAH_TABLE+ " WHERE AyaId =0 or ParaID =" + paraId;
-        }*/
+            Query += " or ParaID = 0" ;
+        }
         Cursor cursor = db.rawQuery(Query, null);
         ArrayList<QuranDisplayModelData> rtn=new ArrayList<QuranDisplayModelData>();
         if(!(cursor.getCount() <= 0)){
             while(cursor.moveToNext()) {
-                rtn.add(new QuranDisplayModelData(cursor.getString(0),cursor.getString(1)));
+                if(language.equals("english"))
+                    rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(6)));
+                else
+                    rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(5)));
             }
         }
 

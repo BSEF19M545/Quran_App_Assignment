@@ -585,8 +585,8 @@ public class QDH {
             list.add(englishParahName[index]);
         return list;
     }
-	public List<String> GetParahNameUrdu() {
-        List<String> list = null;
+	public ArrayList<String> GetParahNameUrdu() {
+        ArrayList<String> list = new ArrayList<>();
         for (int index = 0; index < ParahName.length; ++index)
             list.add(ParahName[index]);
         return list;

@@ -21,13 +21,23 @@
             app:title="Navigation Drawer Demo"
             app:titleTextColor="@color/cardview_light_background" />
 
+        <Switch
+            android:id="@+id/myswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="95dp"
+            android:layout_marginEnd="58dp"
+            android:text="Translation Language(English/Urdu)" />
+
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
-        android:layout_gravity="start"
-        android:layout_height="match_parent"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
         app:headerLayout="@layout/header"
         app:menu="@menu/main_menu"
         tools:ignore="MissingConstraints" />

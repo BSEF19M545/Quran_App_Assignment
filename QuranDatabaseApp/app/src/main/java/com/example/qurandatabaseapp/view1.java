@@ -31,11 +31,11 @@ public class view1 extends AppCompatActivity {
 
         if(getIntent().getStringExtra("type").equals("surah"))
         {
-            displayData=db.getSurahList();
+            displayData=db.getSurahList(getIntent().getStringExtra("language"));
         }
         else if(getIntent().getStringExtra("type").equals("para"))
         {
-            displayData=db.getParaList();
+            displayData=db.getParaList(getIntent().getStringExtra("language"));
         }
         ListView view1ListView=findViewById(R.id.view1ListView);
 
@@ -50,10 +50,13 @@ public class view1 extends AppCompatActivity {
             if(getIntent().getStringExtra("type").equals("surah"))
             {
                 intent.putExtra("surahId",i);
+                intent.putExtra("language",getIntent().getStringExtra("language"));
             }
             else if(getIntent().getStringExtra("type").equals("para"))
             {
                 intent.putExtra("paraId",i);
+                intent.putExtra("language",getIntent().getStringExtra("language"));
+
             }
             startActivity(intent);
         });

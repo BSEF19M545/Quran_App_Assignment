@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,12 +23,13 @@ public class view2 extends AppCompatActivity {
         ArrayList<QuranDisplayModelData> data=new ArrayList<>();
         if(intent.hasExtra("surahId")){
             surahId=intent.getIntExtra("surahId",0)+1;
-            data =dbHelper.getSurah(surahId);
+            data =dbHelper.getSurah(surahId,intent.getStringExtra("language"));
         }
         else if (intent.hasExtra("paraId"))
         {
-            paraId=intent.getIntExtra("paraId",0);
-            data =dbHelper.getPara(paraId);
+            paraId=intent.getIntExtra("paraId",0)+1;
+            Toast.makeText(this, String.valueOf(paraId), Toast.LENGTH_SHORT).show();
+            data =dbHelper.getPara(paraId,intent.getStringExtra("language"));
         }
 
 
