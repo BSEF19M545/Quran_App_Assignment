@@ -41,49 +41,43 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        navigationView=findViewById(R.id.nav_view);
-        drawerLayout=findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.drawer);
 
-        toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
-            {
-                switch (menuItem.getItemId())
-                {
-                    case R.id.nav_book :
-                        Toast.makeText(getApplicationContext(),"Book is Clicked",Toast.LENGTH_LONG).show();
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_book:
+                        Toast.makeText(getApplicationContext(), "Book is Clicked", Toast.LENGTH_LONG).show();
                         //Intent intent = new Intent(MainActivity.this, BookActivity.class);
                         //startActivity(intent);
                         //drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-                    case R.id.nav_return :
-                        Toast.makeText(getApplicationContext(),"Return is Clicked",Toast.LENGTH_LONG).show();
+                    case R.id.nav_return:
+                        Toast.makeText(getApplicationContext(), "Return is Clicked", Toast.LENGTH_LONG).show();
                         //drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-                    case R.id.nav_laptop :
-                        Toast.makeText(getApplicationContext(),"Laptop is clicked",Toast.LENGTH_LONG).show();
+                    case R.id.nav_laptop:
+                        Toast.makeText(getApplicationContext(), "Laptop is clicked", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-                    case R.id.nav_voice :
-                        Toast.makeText(getApplicationContext(),"Voice is clicked",Toast.LENGTH_LONG).show();
+                    case R.id.nav_voice:
+                        Toast.makeText(getApplicationContext(), "Voice is clicked", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-                    case R.id.nav_chrome_reader :
-                        Toast.makeText(getApplicationContext(),"Chrome Reader is clicked",Toast.LENGTH_LONG).show();
+                    case R.id.nav_chrome_reader:
+                        Toast.makeText(getApplicationContext(), "Chrome Reader is clicked", Toast.LENGTH_LONG).show();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                 }
@@ -93,6 +87,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-}
-//
-}
+    }}
