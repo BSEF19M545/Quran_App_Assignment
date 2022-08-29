@@ -19,7 +19,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class view1 extends AppCompatActivity {
-    ArrayList<surahListModel> displayData;
+    ArrayList<surahListModel> displayData=new ArrayList<surahListModel>();
 //    ArrayList<String> displayData;
 
     @Override
@@ -31,6 +31,7 @@ public class view1 extends AppCompatActivity {
 
         if(getIntent().getStringExtra("type").equals("surah"))
         {
+            //if(getIntent().getStringExtra("TaUrdu").equals)
             displayData=db.getSurahList(getIntent().getStringExtra("language"));
         }
         else if(getIntent().getStringExtra("type").equals("para"))
@@ -50,11 +51,16 @@ public class view1 extends AppCompatActivity {
             if(getIntent().getStringExtra("type").equals("surah"))
             {
                 intent.putExtra("surahId",i);
+                intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
+                intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
+
                 intent.putExtra("language",getIntent().getStringExtra("language"));
             }
             else if(getIntent().getStringExtra("type").equals("para"))
             {
                 intent.putExtra("paraId",i);
+                intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
+                intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
                 intent.putExtra("language",getIntent().getStringExtra("language"));
 
             }

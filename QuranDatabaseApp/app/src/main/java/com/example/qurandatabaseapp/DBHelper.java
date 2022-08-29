@@ -69,7 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return rtn;
     }
-        public ArrayList<QuranDisplayModelData>  getSurah(int suraId,String language){
+        public ArrayList<QuranDisplayModelData>  getSurah(int suraId,String language,String english,String urdu){
 
             SQLiteDatabase db = this.getReadableDatabase();
             String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId;
@@ -82,9 +82,9 @@ public class DBHelper extends SQLiteOpenHelper {
             if(!(cursor.getCount() <= 0)){
                 while(cursor.moveToNext()) {
                     if(language.equals("english"))
-                        rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(6)));
+                        rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(Integer.parseInt(english))));
                     else
-                        rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(5)));
+                        rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(Integer.parseInt(urdu))));
                 }
             }
 
@@ -96,7 +96,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //        public ArrayList<String> getParaList() {
         public ArrayList<surahListModel> getParaList(String language) {
             SQLiteDatabase db = this.getReadableDatabase();
-            String Query = "Select * from " + AYAH_TABLE ;
+            String Query = "Select * from \"tayah\"" ;
             Cursor cursor = db.rawQuery(Query, null);
             ArrayList<surahListModel> rtn=new ArrayList<surahListModel>();
 //            ArrayList<String> rtn=new ArrayList<String>();
@@ -126,7 +126,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         }
 
-    public ArrayList<QuranDisplayModelData> getPara(int paraId, String language) {
+    public ArrayList<QuranDisplayModelData> getPara(int paraId, String language,String english,String urdu) {
         SQLiteDatabase db = this.getReadableDatabase();
         String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId;
 
@@ -139,9 +139,9 @@ public class DBHelper extends SQLiteOpenHelper {
         if(!(cursor.getCount() <= 0)){
             while(cursor.moveToNext()) {
                 if(language.equals("english"))
-                    rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(6)));
+                    rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(Integer.parseInt(english))));
                 else
-                    rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(5)));
+                    rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(Integer.parseInt(urdu))));
             }
         }
 

@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     ActionBarDrawerToggle toggle;
-
+    String english,urdu;
 
 
     @Override
@@ -45,9 +47,17 @@ public class MainActivity extends AppCompatActivity {
 
         Switch mySwitch = findViewById(R.id.myswitch);
         //mySwitch.setOnCheckedChangeListener(this);
-
-
-
+        RadioButton rb11,rb12,rb21,rb22;
+        RadioGroup rg1,rg2;
+        rg1 = findViewById(R.id.rg1);
+        rg2 = findViewById(R.id.rg2);
+        rg1.getCheckedRadioButtonId();
+        rb11=findViewById(rg1.getCheckedRadioButtonId());
+        rb12=findViewById(R.id.radioButton16);
+        rb21=findViewById(rg2.getCheckedRadioButtonId());
+        rb22=findViewById(R.id.radioButton10);
+         english="6";
+         urdu="4";
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
@@ -58,11 +68,31 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), "Book is Clicked", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(MainActivity.this, view1.class);
                         intent.putExtra("type","surah");
-                        if(mySwitch.isChecked())
-                            intent.putExtra("language","urdu");
-                        else
-                            intent.putExtra("language","english");
-                        startActivity(intent);
+                        if(rb11.isChecked())
+                        {
+                            urdu="4";
+                        }
+                        else if(rb12.isChecked())
+                        {
+                            urdu="5";
+                        }
+                        if(rb21.isChecked())
+                        {
+                            english="6";
+                        }
+                        else if(rb22.isChecked())
+                        {
+                            english="7";
+                        }
+                        if(mySwitch.isChecked()) {
+                            intent.putExtra("language", "urdu");
+                            intent.putExtra("TaUrdu", urdu);
+                        }
+                        else{
+                            intent.putExtra("language", "english");
+                            intent.putExtra("TaEnglish", english);
+                        }
+                            startActivity(intent);
                         //drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
@@ -70,16 +100,37 @@ public class MainActivity extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), "Return is Clicked", Toast.LENGTH_LONG).show();
                         intent = new Intent(MainActivity.this, view1.class);
                         intent.putExtra("type","para");
-                        if(mySwitch.isChecked())
-                            intent.putExtra("language","urdu");
-                        else
-                            intent.putExtra("language","english");
+                        if(rb11.isChecked())
+                        {
+                            urdu="4";
+                        }
+                        else if(rb12.isChecked())
+                        {
+                            urdu="5";
+                        }
+                        if(rb21.isChecked())
+                        {
+                            english="6";
+                        }
+                        else if(rb22.isChecked())
+                        {
+                            english="7";
+                        }
+                        if(mySwitch.isChecked()) {
+                            intent.putExtra("language", "urdu");
+                            intent.putExtra("TaUrdu", urdu);
+                        }
 
+                        else {
+                            intent.putExtra("language", "english");
+                            intent.putExtra("TaEnglish", english);
+
+                        }
                         startActivity(intent);
                         //drawerLayout.closeDrawer(GravityCompat.START);
                         break;
 
-
+                    
                 }
 
                 return true;
