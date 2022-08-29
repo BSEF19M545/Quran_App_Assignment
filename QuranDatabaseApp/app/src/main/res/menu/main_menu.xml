@@ -3,16 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <group ></group>
+
         <item
             android:id="@+id/nav_surah"
-            android:title="Surah" />
+            android:title="Surah"
+            />
 
         <item
             android:id="@+id/nav_parah"
-            android:title="Parah" />
+            android:title="Parah"
+            />
 
     </group>
+    <!--<group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_surah1"
+            android:title="Dr Mohsin Khan"
+            app:actionViewClass="android.widget.ToggleButton"/>
+
+        <item
+            android:id="@+id/nav_parah1"
+            android:title="Mufti Taqi Usmani"
+            app:actionViewClass="android.widget.RadioButton"/>
+
+    </group>-->
 
 
     <item android:title="About">
@@ -25,6 +40,19 @@
             </group>
         </menu>
     </item>
+
+<!--    <item android:title="Urdu Translation">-->
+<!--        <menu>-->
+<!--            <item-->
+<!--                app:actionLayout="@layout/radio_button"-->
+<!--                android:id="@+id/nav_radios"-->
+<!--                android:title="Urdu Translation"-->
+<!--                />-->
+
+<!--        </menu>-->
+<!--    </item>-->
+
+
 
 
 

@@ -28,7 +28,7 @@ public class view2 extends AppCompatActivity {
         else if (intent.hasExtra("paraId"))
         {
             paraId=intent.getIntExtra("paraId",0)+1;
-            Toast.makeText(this, String.valueOf(paraId), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, String.valueOf(paraId), Toast.LENGTH_SHORT).show();
             data =dbHelper.getPara(paraId,intent.getStringExtra("language"),getIntent().getStringExtra("TaEnglish"),getIntent().getStringExtra("TaUrdu"));
         }
 

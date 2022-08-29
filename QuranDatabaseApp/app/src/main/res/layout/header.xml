@@ -3,19 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
+    android:background="@color/teal_700"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:background="@color/black"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Quran App"
+        android:text="  My Quran App"
+        android:textColor="#000000"
         android:textSize="30sp" />
 
 </LinearLayout>
