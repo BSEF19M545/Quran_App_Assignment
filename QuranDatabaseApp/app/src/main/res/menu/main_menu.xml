@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <!--<group android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_surah"
@@ -14,21 +14,46 @@
             android:title="Parah"
             />
 
-    </group>
-    <!--<group android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/nav_surah1"
-            android:title="Dr Mohsin Khan"
-            app:actionViewClass="android.widget.ToggleButton"/>
-
-        <item
-            android:id="@+id/nav_parah1"
-            android:title="Mufti Taqi Usmani"
-            app:actionViewClass="android.widget.RadioButton"/>
-
     </group>-->
+    <item
+        android:id="@+id/language"
+        android:title="Language   (English/Urdu)"
+        app:actionViewClass="android.widget.Switch"
+        ></item>
+    <item android:title="Urdu Translation By">
+        <menu>
+            <group android:checkableBehavior="single">
 
+                <item
+                    android:id="@+id/urdu1"
+                    android:title="Fateh Muhammad Jalandhri"
+                    app:actionViewClass="android.widget.RadioButton"/>
+
+                <item
+                    android:id="@+id/urdu2"
+                    android:title="Mehmood ul Hassan"
+                    app:actionViewClass="android.widget.RadioButton"/>
+
+            </group>
+        </menu>
+    </item>
+    <item android:title="English Translation By">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/english1"
+                    android:title="Dr Mohsin Khan"
+                    app:actionViewClass="android.widget.RadioButton"/>
+
+                <item
+                    android:id="@+id/english2"
+                    android:title="Mufti Taqi Usmani"
+                    app:actionViewClass="android.widget.RadioButton"/>
+
+            </group>
+        </menu>
+    </item>
 
     <item android:title="About">
         <menu>

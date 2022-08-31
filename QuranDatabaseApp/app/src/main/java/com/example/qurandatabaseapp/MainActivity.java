@@ -10,6 +10,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,10 +47,12 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
 
-        Switch mySwitch = findViewById(R.id.myswitch);
-         english="6";
+        //Switch mySwitch = findViewById(R.id.myswitch);
+        Switch mySwitch=(Switch) navigationView.getMenu().findItem(R.id.language).getActionView();
+
+        english="6";
          urdu="4";
-        RadioGroup rGroup = (RadioGroup)findViewById(R.id.rg1);
+        /*RadioGroup rGroup = (RadioGroup)findViewById(R.id.rg1);
         rGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             public void onCheckedChanged(RadioGroup group, int checkedId)
@@ -91,21 +95,91 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+        });*/
+        Button sura_button,para_button;
+
+
+
+
+        boolean languageSelector=false;
+
+
+
+        RadioButton rbUrdu1=(RadioButton) navigationView.getMenu().findItem(R.id.urdu1).getActionView();
+        rbUrdu1.setChecked(true);
+        RadioButton rbUrdu2=(RadioButton) navigationView.getMenu().findItem(R.id.urdu2).getActionView();
+
+        RadioButton rbEnglish1=(RadioButton) navigationView.getMenu().findItem(R.id.english1).getActionView();
+        rbEnglish1.setChecked(true);
+        RadioButton rbEnglish2=(RadioButton) navigationView.getMenu().findItem(R.id.english2).getActionView();
+
+        sura_button=findViewById(R.id.sura_button);
+        para_button=findViewById(R.id.para_button);
+
+        sura_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, view1.class);
+                intent.putExtra("type","surah");
+                if(mySwitch.isChecked()) {
+                    if(rbUrdu2.isChecked())
+                        urdu="5";
+                    intent.putExtra("language", "urdu");
+                    intent.putExtra("TaUrdu", urdu);
+                }
+                else{
+                    if(rbEnglish2.isChecked())
+                        english="7";
+                    intent.putExtra("language", "english");
+                    intent.putExtra("TaEnglish", english);
+                }
+                startActivity(intent);
+            }
         });
+
+        para_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, view1.class);
+                intent = new Intent(MainActivity.this, view1.class);
+                intent.putExtra("type","para");
+
+                if(mySwitch.isChecked()) {
+                    if(rbUrdu2.isChecked())
+                        urdu="5";
+                    intent.putExtra("language", "urdu");
+                    intent.putExtra("TaUrdu", urdu);
+                }
+
+                else {
+                    if(rbEnglish2.isChecked())
+                        english="7";
+                    intent.putExtra("language", "english");
+                    intent.putExtra("TaEnglish", english);
+
+                }
+                startActivity(intent);
+            }
+        });
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.nav_surah:
+                    /*case R.id.nav_surah:
                         Intent intent = new Intent(MainActivity.this, view1.class);
                         intent.putExtra("type","surah");
 
                         if(mySwitch.isChecked()) {
+                            if(rbUrdu2.isChecked())
+                                urdu="5";
                             intent.putExtra("language", "urdu");
                             intent.putExtra("TaUrdu", urdu);
                         }
                         else{
+                            if(rbEnglish2.isChecked())
+                                english="7";
                             intent.putExtra("language", "english");
                             intent.putExtra("TaEnglish", english);
                         }
@@ -118,19 +192,109 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("type","para");
 
                         if(mySwitch.isChecked()) {
+                            if(rbUrdu2.isChecked())
+                                urdu="5";
                             intent.putExtra("language", "urdu");
                             intent.putExtra("TaUrdu", urdu);
                         }
 
                         else {
+                            if(rbEnglish2.isChecked())
+                                english="7";
                             intent.putExtra("language", "english");
                             intent.putExtra("TaEnglish", english);
 
                         }
                         startActivity(intent);
+                        break;*/
+                    case R.id.language:
+//                        Switch sw=(Switch) navigationView.getMenu().findItem(R.id.language).getActionView();
+                        /*if(sw.isChecked())
+                            Toast.makeText(MainActivity.this, "Urdu", Toast.LENGTH_SHORT).show();*/
+
+                        break;
+                    case R.id.urdu1:
+
+                        RadioButton rb=(RadioButton) navigationView.getMenu().findItem(R.id.urdu1).getActionView();
+                        RadioButton rb2=(RadioButton) navigationView.getMenu().findItem(R.id.urdu2).getActionView();
+//                        rb.setChecked(true);
+                        if(!rb.isChecked())
+                        {
+                            //rb.setChecked(false);
+//                            Toast.makeText(MainActivity.this, " urdu Checked", Toast.LENGTH_SHORT).show();
+                            rb.setChecked(true);
+                        }
+//                        else if(!rb.isChecked())
+//                        {
+//                            rb.setChecked(true);
+//                        }
+                        if(rb.isChecked())
+                        {
+                            rb2.setChecked(false);
+                        }
+
+                        break;
+                    case R.id.urdu2:
+
+                        RadioButton rb21=(RadioButton) navigationView.getMenu().findItem(R.id.urdu1).getActionView();
+                        RadioButton rb22=(RadioButton) navigationView.getMenu().findItem(R.id.urdu2).getActionView();
+                        if(!rb22.isChecked())
+                        {
+                            //rb22.setChecked(false);
+//                            Toast.makeText(MainActivity.this, "Checked", Toast.LENGTH_SHORT).show();
+                            rb22.setChecked(true);
+                        }
+//                        else
+//                        {
+//                            rb22.setChecked(true);
+//                        }
+                        if(rb22.isChecked())
+                        {
+                            rb21.setChecked(false);
+                        }
+                        break;
+                    case R.id.english1:
+
+                        RadioButton rbe1=(RadioButton) navigationView.getMenu().findItem(R.id.english1).getActionView();
+                        RadioButton rbe2=(RadioButton) navigationView.getMenu().findItem(R.id.english2).getActionView();
+//                        rb.setChecked(true);
+                        if(!rbe1.isChecked())
+                        {
+                            //rb.setChecked(false);
+//                            Toast.makeText(MainActivity.this, " urdu Checked", Toast.LENGTH_SHORT).show();
+                            rbe1.setChecked(true);
+                        }
+//                        else if(!rb.isChecked())
+//                        {
+//                            rb.setChecked(true);
+//                        }
+                        if(rbe1.isChecked())
+                        {
+                            rbe2.setChecked(false);
+                        }
+
                         break;
 
-                    
+                    case R.id.english2:
+
+                        RadioButton rbe21=(RadioButton) navigationView.getMenu().findItem(R.id.english1).getActionView();
+                        RadioButton rbe22=(RadioButton) navigationView.getMenu().findItem(R.id.english2).getActionView();
+                        if(!rbe22.isChecked())
+                        {
+                            //rb22.setChecked(false);
+//                            Toast.makeText(MainActivity.this, "Checked", Toast.LENGTH_SHORT).show();
+                            rbe22.setChecked(true);
+                        }
+//                        else
+//                        {
+//                            rb22.setChecked(true);
+//                        }
+                        if(rbe22.isChecked())
+                        {
+                            rbe21.setChecked(false);
+                        }
+                        break;
+
                 }
 
                 return true;
