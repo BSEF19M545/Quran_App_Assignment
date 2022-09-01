@@ -22,12 +22,12 @@ public class view2 extends AppCompatActivity {
         DBHelper dbHelper=new DBHelper(this);
         ArrayList<QuranDisplayModelData> data=new ArrayList<>();
         if(intent.hasExtra("surahId")){
-            surahId=intent.getIntExtra("surahId",0)+1;
+            surahId=intent.getIntExtra("surahId",0);
             data =dbHelper.getSurah(surahId,intent.getStringExtra("language"),getIntent().getStringExtra("TaEnglish"),getIntent().getStringExtra("TaUrdu"));
         }
         else if (intent.hasExtra("paraId"))
         {
-            paraId=intent.getIntExtra("paraId",0)+1;
+            paraId=intent.getIntExtra("paraId",0);
 //            Toast.makeText(this, String.valueOf(paraId), Toast.LENGTH_SHORT).show();
             data =dbHelper.getPara(paraId,intent.getStringExtra("language"),getIntent().getStringExtra("TaEnglish"),getIntent().getStringExtra("TaUrdu"));
         }

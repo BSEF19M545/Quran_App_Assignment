@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -50,7 +51,10 @@ public class view1 extends AppCompatActivity {
         view1ListView.setOnItemClickListener((adapterView, view, i, l) -> {
             if(getIntent().getStringExtra("type").equals("surah"))
             {
-                intent.putExtra("surahId",i);
+                TextView tv=(TextView) view.findViewById(R.id.textView1);
+                //findViewById(R.id.textView1);
+                intent.putExtra("surahId",Integer.parseInt(tv.getText().toString()));
+                //Toast.makeText(this, tv.getText().toString(), Toast.LENGTH_SHORT).show();
                 intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
                 intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
 
@@ -58,7 +62,10 @@ public class view1 extends AppCompatActivity {
             }
             else if(getIntent().getStringExtra("type").equals("para"))
             {
-                intent.putExtra("paraId",i);
+                TextView tv=(TextView) view.findViewById(R.id.textView1);
+//                Toast.makeText(this, tv.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                intent.putExtra("paraId",Integer.parseInt(tv.getText().toString()));
                 intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
                 intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
                 intent.putExtra("language",getIntent().getStringExtra("language"));
