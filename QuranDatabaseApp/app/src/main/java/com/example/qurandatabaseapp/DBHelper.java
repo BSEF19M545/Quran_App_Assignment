@@ -189,6 +189,52 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return rtn;
     }
+    public ArrayList<QuranDisplayModelData_V2>  getSurah_V2(int suraId,String english,String urdu){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId;
+        if(!(suraId==9))
+        {
+            Query += " or AyaId = 0";
+        }
+        Cursor cursor = db.rawQuery(Query, null);
+        ArrayList<QuranDisplayModelData_V2> rtn=new ArrayList<QuranDisplayModelData_V2>();
+        if(!(cursor.getCount() <= 0)){
+            while(cursor.moveToNext()) {
+                //if(language.equals("english"))
+                    rtn.add(new QuranDisplayModelData_V2(cursor.getString(3),cursor.getString(Integer.parseInt(urdu)),cursor.getString(Integer.parseInt(english))));
+                //else
+                  //  rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(Integer.parseInt(urdu))));
+            }
+        }
+
+        cursor.close();
+        db.close();
+        return rtn;
+    }
+    public ArrayList<QuranDisplayModelData_V2> getPara_V2(int paraId,String english,String urdu) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId;
+
+        if(paraId==1)
+        {
+            Query += " or ParaID = 0" ;
+        }
+        Cursor cursor = db.rawQuery(Query, null);
+        ArrayList<QuranDisplayModelData_V2> rtn=new ArrayList<QuranDisplayModelData_V2>();
+        if(!(cursor.getCount() <= 0)){
+            while(cursor.moveToNext()) {
+                //if(language.equals("english"))
+                    rtn.add(new QuranDisplayModelData_V2(cursor.getString(3),cursor.getString(Integer.parseInt(urdu)),cursor.getString(Integer.parseInt(english))));
+                //else
+                    //rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(Integer.parseInt(urdu))));
+            }
+        }
+
+        cursor.close();
+        db.close();
+        return rtn;
+    }
 
 
 //        cv.put(STUDENT_NAME, Student.getName());

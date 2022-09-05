@@ -27,11 +27,11 @@ public class surahListModel_V2 {
         this.surahNameEnglish = surahNameEnglish;
     }
 
-    public String getGetSurahNameUrdu() {
+    public String getSurahNameUrdu() {
         return getSurahNameUrdu;
     }
 
-    public void setGetSurahNameUrdu(String getSurahNameUrdu) {
+    public void setSurahNameUrdu(String getSurahNameUrdu) {
         this.getSurahNameUrdu = getSurahNameUrdu;
     }
 

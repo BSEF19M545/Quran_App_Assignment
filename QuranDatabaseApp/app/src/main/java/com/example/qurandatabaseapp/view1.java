@@ -60,31 +60,53 @@ public class view1 extends AppCompatActivity {
         }
         else
         {
-            customListView adapter = new customListView(getApplicationContext(), displayData);
+            customListView_V2 adapter = new customListView_V2(getApplicationContext(), displayData_V2);
             view1ListView.setAdapter(adapter);
         }
         view1ListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            if(getIntent().getStringExtra("type").equals("surah"))
-            {
-                TextView tv=(TextView) view.findViewById(R.id.textView1);
-                //findViewById(R.id.textView1);
-                intent.putExtra("surahId",Integer.parseInt(tv.getText().toString()));
-                //Toast.makeText(this, tv.getText().toString(), Toast.LENGTH_SHORT).show();
-                intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
-                intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
+            if(getIntent().getStringExtra("version").equals("v1")) {
+                if (getIntent().getStringExtra("type").equals("surah")) {
+                    TextView tv = (TextView) view.findViewById(R.id.textView1);
+                    //findViewById(R.id.textView1);
+                    intent.putExtra("surahId", Integer.parseInt(tv.getText().toString()));
+                    //Toast.makeText(this, tv.getText().toString(), Toast.LENGTH_SHORT).show();
+                    intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
+                    intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
+                    intent.putExtra("version", "v1");
 
-                intent.putExtra("language",getIntent().getStringExtra("language"));
-            }
-            else if(getIntent().getStringExtra("type").equals("para"))
-            {
-                TextView tv=(TextView) view.findViewById(R.id.textView1);
+
+
+                    intent.putExtra("language", getIntent().getStringExtra("language"));
+                } else if (getIntent().getStringExtra("type").equals("para")) {
+                    TextView tv = (TextView) view.findViewById(R.id.textView1);
 //                Toast.makeText(this, tv.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                intent.putExtra("paraId",Integer.parseInt(tv.getText().toString()));
-                intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
-                intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
-                intent.putExtra("language",getIntent().getStringExtra("language"));
+                    intent.putExtra("paraId", Integer.parseInt(tv.getText().toString()));
+                    intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
+                    intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
+                    intent.putExtra("language", getIntent().getStringExtra("language"));
+                    intent.putExtra("version", "v1");
 
+
+                }
+            }
+            else
+            {
+                if (getIntent().getStringExtra("type").equals("surah")) {
+                    TextView tv = (TextView) view.findViewById(R.id.textView1);
+                    intent.putExtra("surahId", Integer.parseInt(tv.getText().toString()));
+                    intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
+                    intent.putExtra("version", "v2");
+
+
+                } else if (getIntent().getStringExtra("type").equals("para")) {
+                    TextView tv = (TextView) view.findViewById(R.id.textView1);
+                    intent.putExtra("paraId", Integer.parseInt(tv.getText().toString()));
+                    intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
+                    intent.putExtra("version", "v2");
+
+
+                }
             }
             startActivity(intent);
         });
@@ -96,26 +118,50 @@ public class view1 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable mEdit)
             {
-                ArrayList<surahListModel> rtn=new ArrayList<>();
-                String str;
-                for(int i=0;i<displayData.size();i++)
-                {
-                    str=String.valueOf(displayData.get(i).getSurahNO())+ " "+displayData.get(i).surahName;
-                    if (str.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))//String.valueOf(displayData.get(i).surahNO).equals(mEdit.toString())||displayData.get(i).surahName.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
+                if(getIntent().getStringExtra("version").equals("v1")) {
+                    ArrayList<surahListModel> rtn = new ArrayList<>();
+                    String str;
+                    for(int i=0;i<displayData.size();i++)
                     {
-                        rtn.add(displayData.get(i));
+                        str=String.valueOf(displayData.get(i).getSurahNO())+ " "+displayData.get(i).surahName;
+                        if (str.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))//String.valueOf(displayData.get(i).surahNO).equals(mEdit.toString())||displayData.get(i).surahName.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
+                        {
+                            rtn.add(displayData.get(i));
+                        }
                     }
-                }
-                if(rtn.size()>0)
-                {
+                    if(rtn.size()>0)
+                    {
                     /*ArrayAdapter<String> adapter = new ArrayAdapter<>(view1.this, android.R.layout.simple_list_item_1, rtn);
                     view1ListView.setAdapter(adapter);*/
-                    customListView adapter= new customListView(getApplicationContext(),rtn);
-                    view1ListView.setAdapter(adapter);
+                        customListView adapter= new customListView(getApplicationContext(),rtn);
+                        view1ListView.setAdapter(adapter);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"No data found",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
-                      Toast.makeText(getApplicationContext(),"No data found",Toast.LENGTH_SHORT).show();
+                    ArrayList<surahListModel_V2> rtn_V2 = new ArrayList<>();
+                    String str;
+                    for(int i=0;i<displayData_V2.size();i++)
+                    {
+                        str=String.valueOf(displayData_V2.get(i).getSurahNO())+ " "+displayData_V2.get(i).getSurahNameUrdu()+" "+displayData_V2.get(i).getSurahNameEnglish();
+                        if (str.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))//String.valueOf(displayData.get(i).surahNO).equals(mEdit.toString())||displayData.get(i).surahName.toLowerCase(Locale.ROOT).contains(mEdit.toString().toLowerCase(Locale.ROOT)))
+                        {
+                            rtn_V2.add(displayData_V2.get(i));
+                        }
+                    }
+                    if(rtn_V2.size()>0)
+                    {
+                        customListView_V2 adapter= new customListView_V2(getApplicationContext(),rtn_V2);
+                        view1ListView.setAdapter(adapter);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),"No data found",Toast.LENGTH_SHORT).show();
+                    }
                 }
+
+
 
             }
 
