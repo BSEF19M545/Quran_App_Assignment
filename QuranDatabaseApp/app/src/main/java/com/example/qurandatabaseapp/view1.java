@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class view1 extends AppCompatActivity {
     ArrayList<surahListModel> displayData=new ArrayList<surahListModel>();
+    ArrayList<surahListModel_V2> displayData_V2=new ArrayList<surahListModel_V2>();
 //    ArrayList<String> displayData;
 
     @Override
@@ -30,14 +31,22 @@ public class view1 extends AppCompatActivity {
         DBHelper db=new DBHelper(this);
         Intent intent = new Intent(view1.this, view2.class);
 
-        if(getIntent().getStringExtra("type").equals("surah"))
-        {
-            //if(getIntent().getStringExtra("TaUrdu").equals)
-            displayData=db.getSurahList(getIntent().getStringExtra("language"));
+        if(getIntent().getStringExtra("version").equals("v1")) {
+
+            if (getIntent().getStringExtra("type").equals("surah")) {
+                //if(getIntent().getStringExtra("TaUrdu").equals)
+                displayData = db.getSurahList(getIntent().getStringExtra("language"));
+            } else if (getIntent().getStringExtra("type").equals("para")) {
+                displayData = db.getParaList(getIntent().getStringExtra("language"));
+            }
         }
-        else if(getIntent().getStringExtra("type").equals("para"))
-        {
-            displayData=db.getParaList(getIntent().getStringExtra("language"));
+        else{
+            if (getIntent().getStringExtra("type").equals("surah")) {
+                displayData_V2 = db.getSuraList_V2();
+            }
+            else if (getIntent().getStringExtra("type").equals("para")) {
+                displayData_V2 = db.getParaList_V2();
+            }
         }
         ListView view1ListView=findViewById(R.id.view1ListView);
 
@@ -45,9 +54,15 @@ public class view1 extends AppCompatActivity {
                 (this, android.R.layout.simple_list_item_1, displayData);
 
         view1ListView.setAdapter(arrayAdapter);*/
-        customListView adapter= new customListView(getApplicationContext(),displayData);
-        view1ListView.setAdapter(adapter);
-
+        if(getIntent().getStringExtra("version").equals("v1")) {
+            customListView adapter = new customListView(getApplicationContext(), displayData);
+            view1ListView.setAdapter(adapter);
+        }
+        else
+        {
+            customListView adapter = new customListView(getApplicationContext(), displayData);
+            view1ListView.setAdapter(adapter);
+        }
         view1ListView.setOnItemClickListener((adapterView, view, i, l) -> {
             if(getIntent().getStringExtra("type").equals("surah"))
             {

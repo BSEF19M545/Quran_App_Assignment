@@ -115,23 +115,41 @@ public class MainActivity extends AppCompatActivity {
 
         sura_button=findViewById(R.id.sura_button);
         para_button=findViewById(R.id.para_button);
-
         sura_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(MainActivity.this, view1.class);
                 intent.putExtra("type","surah");
-                if(mySwitch.isChecked()) {
-                    if(rbUrdu2.isChecked())
-                        urdu="5";
-                    intent.putExtra("language", "urdu");
-                    intent.putExtra("TaUrdu", urdu);
+                if(getIntent().getStringExtra("version").equals("v1")) {
+                    if (mySwitch.isChecked()) {
+                        if (rbUrdu2.isChecked())
+                            urdu = "5";
+                        intent.putExtra("language", "urdu");
+                        intent.putExtra("version", "v1");
+                        intent.putExtra("TaUrdu", urdu);
+
+                    } else {
+                        if (rbEnglish2.isChecked())
+                            english = "7";
+                        intent.putExtra("language", "english");
+                        intent.putExtra("version", "v1");
+                        intent.putExtra("TaEnglish", english);
+                    }
                 }
                 else{
-                    if(rbEnglish2.isChecked())
-                        english="7";
-                    intent.putExtra("language", "english");
+                    if (rbUrdu2.isChecked())
+                        urdu = "5";
+                    //intent.putExtra("language", "urdu");
+                    intent.putExtra("TaUrdu", urdu);
+                    if (rbEnglish2.isChecked())
+                        english = "7";
+                    //intent.putExtra("language", "english");
                     intent.putExtra("TaEnglish", english);
+
+                    intent.putExtra("version", "v2");
+
+
                 }
                 startActivity(intent);
             }
@@ -143,19 +161,35 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, view1.class);
                 intent = new Intent(MainActivity.this, view1.class);
                 intent.putExtra("type","para");
+                if(getIntent().getStringExtra("version").equals("v1")) {
 
-                if(mySwitch.isChecked()) {
-                    if(rbUrdu2.isChecked())
-                        urdu="5";
-                    intent.putExtra("language", "urdu");
-                    intent.putExtra("TaUrdu", urdu);
+                    if (mySwitch.isChecked()) {
+                        if (rbUrdu2.isChecked())
+                            urdu = "5";
+                        intent.putExtra("language", "urdu");
+                        intent.putExtra("TaUrdu", urdu);
+                        intent.putExtra("version", "v1");
+
+                    } else {
+                        if (rbEnglish2.isChecked())
+                            english = "7";
+                        intent.putExtra("language", "english");
+                        intent.putExtra("TaEnglish", english);
+                        intent.putExtra("version", "v1");
+
+
+                    }
                 }
-
-                else {
-                    if(rbEnglish2.isChecked())
-                        english="7";
-                    intent.putExtra("language", "english");
+                else{
+                    if (rbUrdu2.isChecked())
+                        urdu = "5";
+                    //intent.putExtra("language", "urdu");
+                    intent.putExtra("TaUrdu", urdu);
+                    if (rbEnglish2.isChecked())
+                        english = "7";
+                    //intent.putExtra("language", "english");
                     intent.putExtra("TaEnglish", english);
+                    intent.putExtra("version", "v2");
 
                 }
                 startActivity(intent);

@@ -26,9 +26,10 @@ public class customListView extends ArrayAdapter<surahListModel> {
         surahListModel model = getItem(position);
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_view_surah, parent, false);
 
+
         TextView tv1= convertView.findViewById(R.id.textView1);
         TextView tv2= convertView.findViewById(R.id.textView2);
-//        TextView tv3= convertView.findViewById(R.id.textView3);
+        //TextView tv3= convertView.findViewById(R.id.textView13);
 
         tv1.setText(String.valueOf(model.getSurahNO()));
 //        tv2.setText(model.getSurahNameArabic());

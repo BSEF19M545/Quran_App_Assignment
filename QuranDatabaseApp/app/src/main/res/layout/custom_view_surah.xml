@@ -44,5 +44,16 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:paddingLeft="10dp"
+            android:paddingEnd="15dp"
+            android:textAlignment="textStart"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

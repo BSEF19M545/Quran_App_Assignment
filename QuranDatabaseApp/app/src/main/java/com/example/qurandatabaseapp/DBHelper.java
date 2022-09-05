@@ -150,6 +150,46 @@ public class DBHelper extends SQLiteOpenHelper {
         return rtn;
     }
 
+    public ArrayList<surahListModel_V2> getSuraList_V2() {
+        ArrayList<surahListModel_V2> rtn=new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "Select * from " + SURAH_TABLE ;
+        Cursor cursor = db.rawQuery(Query, null);
+//        int i=0;
+//        ArrayList
+        if(!(cursor.getCount() <= 0)){
+            while(cursor.moveToNext()) {
+                rtn.add(new surahListModel_V2(Integer.parseInt(cursor.getString(0)),cursor.getString(2),cursor.getString(4)));
+            }
+        }
+
+        cursor.close();
+        db.close();
+        return rtn;
+    }
+    public ArrayList<surahListModel_V2> getParaList_V2() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Query = "Select * from \"tayah\"" ;
+        Cursor cursor = db.rawQuery(Query, null);
+        ArrayList<surahListModel_V2> rtn=new ArrayList<surahListModel_V2>();
+        QDH qdh=new QDH();
+        ArrayList<String> paraNameEnglish = new ArrayList<>();
+        ArrayList<String> paraNameUrdu = new ArrayList<>();
+        paraNameEnglish=qdh.GetParahNameEnglish();
+        paraNameUrdu=qdh.GetParahNameUrdu();
+        int i=0;
+
+        while(i<paraNameEnglish.size())
+        {
+            rtn.add(new surahListModel_V2(i+1,paraNameEnglish.get(i),paraNameUrdu.get(i)));
+            i++;
+        }
+
+        cursor.close();
+        db.close();
+        return rtn;
+    }
+
 
 //        cv.put(STUDENT_NAME, Student.getName());
 //        cv.put(STUDENT_ROLL, Student.getRollNumber());
