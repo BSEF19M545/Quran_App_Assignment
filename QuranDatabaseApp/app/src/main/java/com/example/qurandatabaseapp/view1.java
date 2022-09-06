@@ -8,26 +8,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-public class view1 extends AppCompatActivity {
+public class view1 extends AppCompatActivity implements recyclerViewAdapter.onNoteListener {
     ArrayList<surahListModel> displayData=new ArrayList<surahListModel>();
     ArrayList<surahListModel_V2> displayData_V2=new ArrayList<surahListModel_V2>();
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
+    Intent intent;
+    recyclerViewAdapter.onNoteListener con;
 //    ArrayList<String> displayData;
 
     @Override
@@ -35,7 +32,7 @@ public class view1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view1);
         DBHelper db=new DBHelper(this);
-        Intent intent = new Intent(view1.this, view2.class);
+        intent = new Intent(view1.this, view2.class);
 
         if(getIntent().getStringExtra("version").equals("v1")) {
 
@@ -55,6 +52,7 @@ public class view1 extends AppCompatActivity {
             }
         }
         ListView view1ListView=findViewById(R.id.view1ListView);
+        recyclerView = findViewById(R.id.recyclerViewList);
 
         /*ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>
                 (this, android.R.layout.simple_list_item_1, displayData);
@@ -68,7 +66,7 @@ public class view1 extends AppCompatActivity {
         {
             /*customListView_V2 adapter = new customListView_V2(getApplicationContext(), displayData_V2);
             view1ListView.setAdapter(adapter);*/
-            recyclerView = findViewById(R.id.recyclerViewList);
+
 
 
             recyclerView.setHasFixedSize(true);
@@ -79,12 +77,12 @@ public class view1 extends AppCompatActivity {
                     LinearLayoutManager.VERTICAL,
                     false);
             recyclerView.setLayoutManager(layoutManager);
-
-            adapter = new recyclerViewAdapter(displayData_V2) ;
+            con=this;
+            adapter = new recyclerViewAdapter(displayData_V2,this) ;
             recyclerView.setAdapter(adapter);
         }
         view1ListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            if(getIntent().getStringExtra("version").equals("v1")) {
+            //if(getIntent().getStringExtra("version").equals("v1")) {
                 if (getIntent().getStringExtra("type").equals("surah")) {
                     TextView tv = (TextView) view.findViewById(R.id.textView1);
                     //findViewById(R.id.textView1);
@@ -109,27 +107,45 @@ public class view1 extends AppCompatActivity {
 
 
                 }
-            }
-            else
-            {
-                if (getIntent().getStringExtra("type").equals("surah")) {
-                    TextView tv = (TextView) view.findViewById(R.id.textView1);
-                    intent.putExtra("surahId", Integer.parseInt(tv.getText().toString()));
-                    intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
-                    intent.putExtra("version", "v2");
+           // }
+            //else
+            //{
+            /*intent= new Intent(view1.this, view2.class);
+            if (getIntent().getStringExtra("type").equals("surah")) {
+                TextView tv = (TextView) findViewById(R.id.textView1);
+                intent.putExtra("surahId", Integer.parseInt(tv.getText().toString()));
+                intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
+                intent.putExtra("version", "v2");
 
 
-                } else if (getIntent().getStringExtra("type").equals("para")) {
-                    TextView tv = (TextView) view.findViewById(R.id.textView1);
-                    intent.putExtra("paraId", Integer.parseInt(tv.getText().toString()));
-                    intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
-                    intent.putExtra("version", "v2");
+            } else if (getIntent().getStringExtra("type").equals("para")) {
+                TextView tv = (TextView) findViewById(R.id.textView1);
+                intent.putExtra("paraId", Integer.parseInt(tv.getText().toString()));
+                intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
+                intent.putExtra("version", "v2");
+*/
 
+                // }
 
-                }
-            }
             startActivity(intent);
         });
+
+        /*recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                Toast.makeText(view1.this, "Helo", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });*/
 
         EditText searchBar=findViewById(R.id.searchBar);
 
@@ -173,8 +189,13 @@ public class view1 extends AppCompatActivity {
                     }
                     if(rtn_V2.size()>0)
                     {
-                        customListView_V2 adapter= new customListView_V2(getApplicationContext(),rtn_V2);
-                        view1ListView.setAdapter(adapter);
+                        /*customListView_V2 adapter= new customListView_V2(getApplicationContext(),rtn_V2);
+                        view1ListView.setAdapter(adapter);*/
+
+
+
+                        adapter = new recyclerViewAdapter(rtn_V2,con) ;
+                        recyclerView.setAdapter(adapter);
                     }
                     else{
                         Toast.makeText(getApplicationContext(),"No data found",Toast.LENGTH_SHORT).show();
@@ -190,4 +211,36 @@ public class view1 extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
     }
+
+    @Override
+    public void onNoteClick(int position,View view) {
+        //else
+        //{
+            intent= new Intent(view1.this, view2.class);
+            if (getIntent().getStringExtra("type").equals("surah")) {
+                TextView tv = (TextView) view.findViewById(R.id.textView1);
+                //TextView tv = (TextView) findViewById(R.id.textView1);
+                //Toast.makeText(this, String.valueOf(displayData_V2.get(position).getSurahNO()), Toast.LENGTH_SHORT).show();
+//                intent.putExtra("surahId", /*Integer.parseInt(/*tv.getText().toString())*/ displayData_V2.get(position).getSurahNO());
+                intent.putExtra("surahId", Integer.parseInt(tv.getText().toString()) );
+                intent.putExtra("TaEnglish", getIntent().getStringExtra("TaEnglish"));
+                intent.putExtra("version", "v2");
+
+
+            } else if (getIntent().getStringExtra("type").equals("para")) {
+                //TextView tv = (TextView) findViewById(R.id.textView1);
+//                intent.putExtra("paraId",displayData_V2.get(position).getSurahNO() /*Integer.parseInt(tv.getText().toString())*/);
+                TextView tv = (TextView) view.findViewById(R.id.textView1);
+                intent.putExtra("paraId",Integer.parseInt(tv.getText().toString()));
+                intent.putExtra("TaUrdu", getIntent().getStringExtra("TaUrdu"));
+                intent.putExtra("version", "v2");
+
+
+           // }
+        }
+        startActivity(intent);
+
+    }
+
+
 }

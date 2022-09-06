@@ -72,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
         public ArrayList<QuranDisplayModelData>  getSurah(int suraId,String language,String english,String urdu){
 
             SQLiteDatabase db = this.getReadableDatabase();
-            String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId;
+            String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId +" order by \"AyaNo\"";
             if(!(suraId==9))
             {
                 Query += " or AyaId = 0";
@@ -128,7 +128,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<QuranDisplayModelData> getPara(int paraId, String language,String english,String urdu) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId;
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId +" order by \"AyaNo\"";
 
         if(paraId==1)
         {
@@ -192,7 +192,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<QuranDisplayModelData_V2>  getSurah_V2(int suraId,String english,String urdu){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId;
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId +" order by \"AyaNo\"";
         if(!(suraId==9))
         {
             Query += " or AyaId = 0";
@@ -214,7 +214,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public ArrayList<QuranDisplayModelData_V2> getPara_V2(int paraId,String english,String urdu) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId;
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId +" ORDER BY \"AyaNo\"";
 
         if(paraId==1)
         {
