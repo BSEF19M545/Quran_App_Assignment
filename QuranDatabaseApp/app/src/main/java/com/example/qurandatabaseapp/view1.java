@@ -1,6 +1,8 @@
 package com.example.qurandatabaseapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +18,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class view1 extends AppCompatActivity {
     ArrayList<surahListModel> displayData=new ArrayList<surahListModel>();
     ArrayList<surahListModel_V2> displayData_V2=new ArrayList<surahListModel_V2>();
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
+    RecyclerView.LayoutManager layoutManager;
 //    ArrayList<String> displayData;
 
     @Override
@@ -60,8 +66,22 @@ public class view1 extends AppCompatActivity {
         }
         else
         {
-            customListView_V2 adapter = new customListView_V2(getApplicationContext(), displayData_V2);
-            view1ListView.setAdapter(adapter);
+            /*customListView_V2 adapter = new customListView_V2(getApplicationContext(), displayData_V2);
+            view1ListView.setAdapter(adapter);*/
+            recyclerView = findViewById(R.id.recyclerViewList);
+
+
+            recyclerView.setHasFixedSize(true);
+
+            //LinearLayoutManager GridLayoutManager
+            // layoutManager = new LinearLayoutManager(MainActivity.this);
+            layoutManager = new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL,
+                    false);
+            recyclerView.setLayoutManager(layoutManager);
+
+            adapter = new recyclerViewAdapter(displayData_V2) ;
+            recyclerView.setAdapter(adapter);
         }
         view1ListView.setOnItemClickListener((adapterView, view, i, l) -> {
             if(getIntent().getStringExtra("version").equals("v1")) {

@@ -202,7 +202,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if(!(cursor.getCount() <= 0)){
             while(cursor.moveToNext()) {
                 //if(language.equals("english"))
-                    rtn.add(new QuranDisplayModelData_V2(cursor.getString(3),cursor.getString(Integer.parseInt(urdu)),cursor.getString(Integer.parseInt(english))));
+                    rtn.add(new QuranDisplayModelData_V2(cursor.getString(3),cursor.getString(4/*Integer.parseInt(urdu)*/),cursor.getString(6/*Integer.parseInt(english)*/)));
                 //else
                   //  rtn.add(new QuranDisplayModelData(cursor.getString(3),cursor.getString(Integer.parseInt(urdu))));
             }
