@@ -72,11 +72,12 @@ public class DBHelper extends SQLiteOpenHelper {
         public ArrayList<QuranDisplayModelData>  getSurah(int suraId,String language,String english,String urdu){
 
             SQLiteDatabase db = this.getReadableDatabase();
-            String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId +" order by \"AyaNo\"";
+            String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId ;
             if(!(suraId==9))
             {
                 Query += " or AyaId = 0";
             }
+            Query += " order by AyaID ";
             Cursor cursor = db.rawQuery(Query, null);
             ArrayList<QuranDisplayModelData> rtn=new ArrayList<QuranDisplayModelData>();
             if(!(cursor.getCount() <= 0)){
@@ -128,12 +129,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public ArrayList<QuranDisplayModelData> getPara(int paraId, String language,String english,String urdu) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId +" order by \"AyaNo\"";
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId ;
 
         if(paraId==1)
         {
             Query += " or ParaID = 0" ;
         }
+        Query += " order by AyaID ";
         Cursor cursor = db.rawQuery(Query, null);
         ArrayList<QuranDisplayModelData> rtn=new ArrayList<QuranDisplayModelData>();
         if(!(cursor.getCount() <= 0)){
@@ -192,11 +194,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<QuranDisplayModelData_V2>  getSurah_V2(int suraId,String english,String urdu){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId +" order by \"AyaNo\"";
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE  SuraID =" + suraId ;
         if(!(suraId==9))
         {
             Query += " or AyaId = 0";
         }
+        Query += " order by AyaID ";
         Cursor cursor = db.rawQuery(Query, null);
         ArrayList<QuranDisplayModelData_V2> rtn=new ArrayList<QuranDisplayModelData_V2>();
         if(!(cursor.getCount() <= 0)){
@@ -214,12 +217,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public ArrayList<QuranDisplayModelData_V2> getPara_V2(int paraId,String english,String urdu) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId +" ORDER BY \"AyaNo\"";
+        String Query = "Select * from " + AYAH_TABLE+ " WHERE ParaID = " + paraId ;
 
         if(paraId==1)
         {
             Query += " or ParaID = 0" ;
         }
+        Query += " order by AyaID ";
         Cursor cursor = db.rawQuery(Query, null);
         ArrayList<QuranDisplayModelData_V2> rtn=new ArrayList<QuranDisplayModelData_V2>();
         if(!(cursor.getCount() <= 0)){

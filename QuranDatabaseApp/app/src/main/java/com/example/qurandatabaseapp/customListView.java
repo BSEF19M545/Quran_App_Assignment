@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.transition.Visibility;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,9 @@ public class customListView extends ArrayAdapter<surahListModel> {
 
         TextView tv1= convertView.findViewById(R.id.textView1);
         TextView tv2= convertView.findViewById(R.id.textView2);
-        //TextView tv3= convertView.findViewById(R.id.textView13);
+        TextView tv3= convertView.findViewById(R.id.textView13);
+
+        tv3.setVisibility(View.GONE);
 
         tv1.setText(String.valueOf(model.getSurahNO()));
 //        tv2.setText(model.getSurahNameArabic());
