@@ -1,6 +1,8 @@
 package com.example.qurandatabaseapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -57,8 +59,23 @@ public class view2 extends AppCompatActivity {
             view2ListView.setAdapter(adapter);
         }
         else{
-            customListView2_V2 adapter = new customListView2_V2(getApplicationContext(), data_V2);
-            view2ListView.setAdapter(adapter);
+//            customListView2_V2 adapter = new customListView2_V2(getApplicationContext(), data_V2);
+//            view2ListView.setAdapter(adapter);
+            //ListView view1ListView=findViewById(R.id.view1ListView);
+            RecyclerView recyclerView = findViewById(R.id.recyclerViewList2);
+            recyclerView.setHasFixedSize(true);
+            RecyclerView.LayoutManager layoutManager;
+            RecyclerView.Adapter adapter;
+
+            //LinearLayoutManager GridLayoutManager
+            // layoutManager = new LinearLayoutManager(MainActivity.this);
+            layoutManager = new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL,
+                    false);
+            recyclerView.setLayoutManager(layoutManager);
+            //con=this;
+            adapter = new recyclerViewAdapterView2(data_V2) ;
+            recyclerView.setAdapter(adapter);
         }
 
 
